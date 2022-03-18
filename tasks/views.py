@@ -16,14 +16,23 @@ months_and_tasks = {
 }
 
 
+def home(request):
+    links = "<li><a href='jan'>JAN</a></li>"
+    for link in months_and_tasks.keys():
+        links += f"<li><a href='{link}'>{link.upper()}</a></li>"
+    return HttpResponse(links)
+
+
 def january(request):
     return HttpResponse("<h2>This is a heading 2 from Python Django</h2>")
 
 
 def num_month(request, num_months):
-    index = list(months_and_tasks.keys())[num_months - 1]
-    # return monthly_tasks('', index)
-    return HttpResponseRedirect(f'/{index}')
+    if num_months <= len(months_and_tasks):
+        num_months = list(months_and_tasks.keys())[num_months - 1]
+        # return monthly_tasks('', index)
+        return HttpResponseRedirect(f'/{num_months}')
+    return HttpResponseNotFound(f'<h1>Omoooo which month do you want us to find now.. Do we have up to {num_months} months</h1>')
 
 
 def monthly_tasks(request, month):
