@@ -1,6 +1,5 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
-from django.template.loader import render_to_string
 
 months_and_tasks = {
     'feb': "February has 28 - 29 days depending on it's mood",
@@ -18,11 +17,11 @@ months_and_tasks = {
 
 
 def home(request):
-    links = "<li><a href='jan'>JAN</a></li>"
+    links = "<a href='jan' class='list-group-item list-group-item-action'>JAN</a>"
     for link in months_and_tasks.keys():
-        links += f"<li><a href='/tasks/{link}'>{link.upper()}</a></li>"
-
-    response = render_to_string('index.html')
+        links += f"<a href='/tasks/{link}' class='list-group-item list-group-item-action'>{link.upper()}</a>"
+    arg = {'links': links}
+    response = render(request, 'tasks/index.html', arg)
     return HttpResponse(response)
 
 
