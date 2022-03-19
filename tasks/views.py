@@ -19,7 +19,7 @@ months_and_tasks = {
 
 
 def home(request):
-    links = "<a href='jan' class='list-group-item list-group-item-action'>JAN</a>"
+    links = ""
     for link in months_and_tasks.keys():
         links += f"<a href='/tasks/{link}' class='list-group-item list-group-item-action'>{link.upper()}</a>"
     arg = {'links': links}

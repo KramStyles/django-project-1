@@ -1,5 +1,5 @@
 {% extends 'layout.html' %}
-    {% block big_heading %}<h1>Jokes for: {{ month|upper }}</h1>{% endblock big_heading %}
+    {% block big_heading %}{% include 'tasks/layouts/header.html' %}<h1 class='pt-5'>Jokes for: {{ month|upper }}</h1>{% endblock big_heading %}
     {% block body_content %}
     <main style="min-height: 70vh" class="d-flex">
         <div class="container w-50 m-auto">
