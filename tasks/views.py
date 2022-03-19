@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
+from django.template.loader import render_to_string
 
 months_and_tasks = {
+    'jan': "The start of your year.. Guess what, The chinese think you wrong!!",
     'feb': "February has 28 - 29 days depending on it's mood",
     'mar': "Let us keep marching forward! That's what they told us",
     'apr': "It's first of April and i've decided to profess my love to her. Do you think she would take me serious",
@@ -41,4 +43,13 @@ def monthly_tasks(request, month):
         jokes = months_and_tasks[month]
     except KeyError:
         return HttpResponseNotFound(f"<h1>Invalid url: {month} <br>Jokes on you!</h1>")
-    return HttpResponse(f"<h2>{jokes}</h2>")
+    prev = list(months_and_tasks.keys()).index(month)
+    nxt = list(months_and_tasks.keys()).index(month) + 2
+
+    arg = {
+        'content': jokes,
+        'month': month,
+        'prev': prev,
+        'next': nxt if nxt < 12 else nxt % 12
+    }
+    return render(request, 'tasks/months.html', arg)
